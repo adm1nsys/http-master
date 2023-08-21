@@ -67,10 +67,29 @@ settings_menu() {
                     echo "Latest version: $LATEST_VERSION"
                     if [ "$AUTO_UPDATE" == "true" ]; then
                         echo "Auto updating..."
-                        # Здесь ваш код для скачивания новой версии
-                        curl -s -o $0 "$https://raw.githubusercontent.com/administrati0n/http-master/master/ASV.txt"
-                        chmod +x $0
-                        echo "Update complete!"
+
+                        TMP_FILE=$(mktemp)  # создаем временный файл
+                        echo "Downloading to: $TMP_FILE"
+                        
+                        curl -s "https://raw.githubusercontent.com/administrati0n/http-master/master/AS-http-server.sh"
+                        # Проверяем, был ли файл успешно загружен
+                        if [ $? -eq 0 ] && [ -s "$TMP_FILE" ]; then
+                            echo "Downloaded new version successfully. Checking content:"
+                            head "$TMP_FILE"  # показываем начало файла для проверки
+
+                            # Перемещаем временный файл на место старого
+                            mv "$TMP_FILE" "$0"
+                            if [ $? -eq 0 ]; then
+                                echo "Replaced old version successfully."
+                                chmod +x "$0"
+                                echo "Update complete!"
+                            else
+                                echo "Failed to replace old version!"
+                            fi
+                        else
+                            echo "Failed to download new version or file is empty!"
+                        fi
+                        
                     else
                         echo "Please update manually or enable auto update."
                     fi
@@ -96,6 +115,8 @@ settings_menu() {
         esac
     done
 }
+
+
 
 # Функция для вывода меню
 print_menu() {
