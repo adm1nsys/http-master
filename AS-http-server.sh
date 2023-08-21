@@ -1,4 +1,22 @@
 #!/bin/bash
+CONFIG_FILE="$HOME/.as_http_server_config"
+
+# if [ ! -f "$CONFIG_FILE" ]; then
+#     echo "AUTO_UPDATE=false" > "$CONFIG_FILE"
+# fi
+
+CONFIG_FILE="$HOME/.as_http_server_config"
+if [ -f "$CONFIG_FILE" ]; then
+    source "$CONFIG_FILE"
+else
+echo "Creating File Configuration"
+    echo "AUTO_UPDATE=true" > "$CONFIG_FILE"
+    source "$CONFIG_FILE"
+    
+fi
+
+# echo "AUTO_UPDATE value: $AUTO_UPDATE"
+
 
 YELLOW=$(tput setaf 3)
 GREEN=$(tput setaf 2)
@@ -9,7 +27,7 @@ F_INVERT="\033[7m"
 C_WHITE="\033[38;5;15m"
 C_GREY0="\033[48;5;16m"
 CURRENT_VERSION="1.0.0"  # пример текущей версии
-AUTO_UPDATE=false 
+# AUTO_UPDATE=false 
 GITHUB_REPO_URL="https://github.com/administrati0n/http-master"
 echo "${GREEN}"
 echo "Server is starting..."
@@ -44,16 +62,22 @@ view_live_logs() {
 END
 }
 
+update_config() {
+    local new_value="$1"
+    sed -i "" "s/^AUTO_UPDATE=.*/AUTO_UPDATE=$new_value/" "$CONFIG_FILE"
+}
+
+
 settings_menu() {
     while true; do
         printf '\033c'
         echo "Settings:"
         echo "1. Check for Updates"
         if [ "$AUTO_UPDATE" == "true" ]; then
-            echo -e "2. Auto Update: ${GREEN}True${RESET}"
-        else
-            echo -e "2. Auto Update: ${RED}False${RESET}"
-        fi
+     echo -e "2. Auto Update: ${GREEN}True${RESET}"
+else
+  echo -e "2. Auto Update: ${RED}False${RESET}"
+fi
         echo "3. Return to main menu"
         echo "Enter your choice:"
         read SETTINGS_CHOICE
@@ -98,13 +122,19 @@ settings_menu() {
                 fi
                 read -p "Press enter to continue..."
                 ;;
-            2)
-                if [ "$AUTO_UPDATE" == "true" ]; then
-                    AUTO_UPDATE=false
-                else
-                    AUTO_UPDATE=true
-                fi
-                ;;
+2)
+    if [ "$AUTO_UPDATE" == "true" ]; then
+        AUTO_UPDATE=false
+#         echo "Setting AUTO_UPDATE to false"
+        update_config "false"
+    else
+        AUTO_UPDATE=true
+#         echo "Setting AUTO_UPDATE to true"
+        update_config "true"
+    fi
+#     read -p "Press enter to continue..."
+    ;;
+
             3)
                 return
                 ;;
