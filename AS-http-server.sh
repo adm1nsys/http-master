@@ -1,6 +1,7 @@
 #!/bin/bash
 CONFIG_FILE="$HOME/.as_http_server_config"
-
+    printf '\033c'
+    clear && printf '\e[3J'
 # if [ ! -f "$CONFIG_FILE" ]; then
 #     echo "AUTO_UPDATE=false" > "$CONFIG_FILE"
 # fi
@@ -15,7 +16,7 @@ echo "Creating File Configuration"
     
 fi
 
-check_for_updates() {
+# check_for_updates() {
     echo "Checking for updates..."
     LATEST_VERSION=$(curl -s "https://raw.githubusercontent.com/administrati0n/http-master/master/ASV.txt")
     if [ "$LATEST_VERSION" != "$CURRENT_VERSION" ]; then
@@ -49,7 +50,7 @@ check_for_updates() {
     else
         echo "You have the latest version!"
     fi
-}
+# }
 
 # echo "AUTO_UPDATE value: $AUTO_UPDATE"
 
@@ -105,6 +106,8 @@ update_config() {
 
 
 settings_menu() {
+    printf '\033c'
+    clear && printf '\e[3J'
     while true; do
         printf '\033c'
         echo "Settings:"
@@ -187,6 +190,8 @@ fi
 # Функция для вывода меню
 print_menu() {
     printf '\033c'
+    clear && printf '\e[3J'
+
 NO_FORMAT="\033[0m"
 F_BOLD="\033[1m"
 F_INVERT="\033[7m"
