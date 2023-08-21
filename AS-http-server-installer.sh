@@ -10,6 +10,8 @@ echo "${GREEN}Downloading AS-http-server.sh...${RESET}"
 curl -s -O "https://raw.githubusercontent.com/administrati0n/http-master/main/AS-http-server.sh"
 curl -s -O "https://raw.githubusercontent.com/administrati0n/http-master/main/AS-http-server.txt"
 chmod +x AS-http-server.sh
+# brew install duti
+# duti -s com.apple.Terminal .sh all
 
 # 2. Запрашиваем путь к проекту
 echo "Enter the path to your project:"
@@ -60,3 +62,5 @@ case $SHORTCUT_CHOICE in
 esac
 
 echo "${GREEN}Installation completed!${RESET}"
+# duti -s com.apple.Terminal .sh all
+
