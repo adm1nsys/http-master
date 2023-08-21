@@ -16,43 +16,7 @@ echo "Creating File Configuration"
     
 fi
 
-# check_for_updates() {
-    echo "Checking for updates..."
-    LATEST_VERSION=$(curl -s "https://raw.githubusercontent.com/administrati0n/http-master/master/ASV.txt")
-    if [ "$LATEST_VERSION" != "$CURRENT_VERSION" ]; then
-        echo "Update available!"
-        echo "Current version: $CURRENT_VERSION"
-        echo "Latest version: $LATEST_VERSION"
-        if [ "$AUTO_UPDATE" == "true" ]; then
-            echo "Auto updating..."
 
-            TMP_FILE=$(mktemp)
-            echo "Downloading to: $TMP_FILE"
-            
-            curl -s -o "$TMP_FILE" "https://raw.githubusercontent.com/administrati0n/http-master/main/AS-http-server.sh"
-            if [ $? -eq 0 ] && [ -s "$TMP_FILE" ]; then
-                echo "Downloaded new version successfully. Checking content:"
-                head "$TMP_FILE"
-                mv "$TMP_FILE" "$0"
-                if [ $? -eq 0 ]; then
-                    echo "Replaced old version successfully."
-                    chmod +x "$0"
-                    echo "Update complete!"
-                else
-                    echo "Failed to replace old version!"
-                fi
-            else
-                echo "Failed to download new version or file is empty!"
-            fi
-        else
-            echo "Please update manually or enable auto update."
-        fi
-    else
-        echo "You have the latest version!"
-    fi
-# }
-
-# echo "AUTO_UPDATE value: $AUTO_UPDATE"
 
 
 YELLOW=$(tput setaf 3)
@@ -65,9 +29,36 @@ C_WHITE="\033[38;5;15m"
 C_GREY0="\033[48;5;16m"
 CURRENT_VERSION="1.0.0"  # пример текущей версии
 # AUTO_UPDATE=false 
+
+
+
 GITHUB_REPO_URL="https://github.com/administrati0n/http-master"
 echo "${GREEN}"
 echo "Server is starting..."
+
+
+echo "Checking for updates..."
+
+if [ -z "$CURRENT_VERSION" ]; then
+    echo "Error: CURRENT_VERSION is not set."
+    exit 1
+fi
+
+LATEST_VERSION_RAW=$(curl -s "https://raw.githubusercontent.com/administrati0n/http-master/master/ASV.txt")
+if [ $? -ne 0 ]; then
+    echo "Failed to fetch the latest version. Please check your internet connection."
+    exit 1
+fi
+
+LATEST_VERSION=$(echo "$LATEST_VERSION_RAW" | tr -d '[:space:]')
+CURRENT_VERSION_CLEAN=$(echo "$CURRENT_VERSION" | tr -d '[:space:]')
+
+if [ "$LATEST_VERSION" != "$CURRENT_VERSION_CLEAN" ]; then
+    echo "Update is available!"  # Просто добавьте какое-либо действие здесь
+else
+    echo "You have the latest version!"
+fi
+
 
 # Проверка наличия http-server
 if ! command -v http-server &> /dev/null; then
