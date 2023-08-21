@@ -193,7 +193,8 @@ C_GREY0="\033[48;5;16m"
 echo -en "${F_BOLD}${F_INVERT}${C_WHITE}${C_GREY0}"
 
 # Выводим содержимое файла
-cat ~/Documents/Web/AS-http-server.txt
+# cat ~/Documents/Web/AS-http-server.txt
+cat "$HOME/AS-http-server.txt"
  echo "${RESET}"
 echo -e "${F_BOLD}${F_INVERT}${C_WHITE}${C_GREY0}                                              ${NO_FORMAT}"
 echo -e "${F_BOLD}${F_INVERT}${C_WHITE}${C_GREY0}                    http-server               ${NO_FORMAT}"

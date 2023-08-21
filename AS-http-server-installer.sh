@@ -6,20 +6,21 @@ RESET=$(tput sgr0)
 RED=$(tput setaf 1)
 
 # 1. Загрузка AS-http-server.sh в ту же директорию, где и установщик
-echo "${GREEN}Загрузка AS-http-server.sh...${RESET}"
+echo "${GREEN}Downloading AS-http-server.sh...${RESET}"
 curl -s -O "https://raw.githubusercontent.com/administrati0n/http-master/main/AS-http-server.sh"
+curl -s -O "https://raw.githubusercontent.com/administrati0n/http-master/main/AS-http-server.txt"
 chmod +x AS-http-server.sh
 
 # 2. Запрашиваем путь к проекту
-echo "Введите путь к вашему проекту:"
-echo "1 - использовать путь по умолчанию (cd ~/Documents/Web/admin\ inc/as/)"
-echo "2 - указать свой путь"
-read -p "Ваш выбор (1/2): " CHOICE
+echo "Enter the path to your project:"
+echo "1 - use default path (cd ~/Documents/Web/admin\ inc/as/)"
+echo "2 - point your way"
+read -p "Your choice (1/2): " CHOICE
 
 if [ "$CHOICE" == "1" ]; then
     PROJECT_PATH="cd ~/Documents/Web/admin\ inc/as/"
 else
-    read -p "Укажите путь к вашему проекту: " CUSTOM_PATH
+    read -p "Specify the path to your project: " CUSTOM_PATH
     PROJECT_PATH="cd $CUSTOM_PATH"
 fi
 
@@ -31,7 +32,7 @@ rm AS-http-server.sh.bak
 
 # 3. Проверка необходимых компонентов для работы http-server
 if ! command -v http-server &> /dev/null; then
-    echo "${RED}http-server не найден! Установите его с помощью npm или другого менеджера пакетов.${RESET}"
+    echo "${RED}http-server not found! Install it with npm or another package manager.${RESET}"
     exit 1
 fi
 # Добавьте другие необходимые проверки по вашему усмотрению
@@ -54,7 +55,7 @@ case $SHORTCUT_CHOICE in
         ln -s "$(pwd)/AS-http-server.sh" ~/Documents/
         ;;
     *)
-        echo "${RED}Неверный выбор!${RESET}"
+        echo "${RED}Wrong choice!${RESET}"
         ;;
 esac
 
