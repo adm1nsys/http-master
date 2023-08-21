@@ -28,7 +28,7 @@ fi
 
 # Обновляем файл AS-http-server.sh, заменяя путь к проекту
 # Обновляем файл AS-http-server.sh, заменяя путь к проекту
-sed -i.bak "s#cd ~/Documents/Web/admin\\\\ inc/as/ || { echo \"Directory not found\"; exit 1; }#$PROJECT_PATH || { echo \"Directory not found\"; exit 1; }#g" AS-http-server.sh
+sed -i.bak "s#cd ~/Documents/Web/admin\ inc/as/ || { echo \"Directory not found\"; exit 1; }#$PROJECT_PATH || { echo \"Directory not found\"; exit 1; }#g" AS-http-server.sh
 
 rm AS-http-server.sh.bak
 
