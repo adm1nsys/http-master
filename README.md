@@ -2,7 +2,7 @@
 
 http-server launch wizard and convenient server management and configuration.
 
-# Shell Version Installer
+# Shell Version Installer (Mac OS)
 
 ### Option 1: Manual installation
 
