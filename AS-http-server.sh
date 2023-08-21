@@ -8,7 +8,7 @@ F_BOLD="\033[1m"
 F_INVERT="\033[7m"
 C_WHITE="\033[38;5;15m"
 C_GREY0="\033[48;5;16m"
-CURRENT_VERSION="2.0.0"  # пример текущей версии
+CURRENT_VERSION="1.0.0"  # пример текущей версии
 AUTO_UPDATE=false 
 GITHUB_REPO_URL="https://github.com/administrati0n/http-master"
 echo "${GREEN}"
@@ -60,7 +60,7 @@ settings_menu() {
         case $SETTINGS_CHOICE in
             1)
                 echo "Checking for updates..."
-                LATEST_VERSION=$(curl -s "https://raw.githubusercontent.com/administrati0n/http-master/ASV.txt")  # получаем последнюю версию
+                LATEST_VERSION=$(curl -s "https://raw.githubusercontent.com/administrati0n/http-master/master/ASV.txt")  # получаем последнюю версию
                 if [ "$LATEST_VERSION" != "$CURRENT_VERSION" ]; then
                     echo "Update available!"
                     echo "Current version: $CURRENT_VERSION"
@@ -68,7 +68,7 @@ settings_menu() {
                     if [ "$AUTO_UPDATE" == "true" ]; then
                         echo "Auto updating..."
                         # Здесь ваш код для скачивания новой версии
-                        curl -s -o $0 "$https://raw.githubusercontent.com/administrati0n/http-master/AS-http-server.sh"
+                        curl -s -o $0 "$https://raw.githubusercontent.com/administrati0n/http-master/master/ASV.txt"
                         chmod +x $0
                         echo "Update complete!"
                     else
