@@ -1,16 +1,15 @@
 # http-master
+
+http-server launch wizard and convenient server management and configuration.
+
 # Shell Version Installer
-
-Описание вашего проекта...
-
-## Установка
 
 ### Вариант 1: Ручная установка
 
-1. Перейдите на [страницу релизов](https://github.com/administrati0n/http-master/releases) вашего GitHub репозитория.
-2. Загрузите последний релиз, обычно он будет назван как `AS-http-server-installer.sh` или аналогичным образом.
-3. Откройте терминал и перейдите в директорию, куда вы загрузили установочный файл.
-4. Сделайте файл исполняемым:
+1. Go to [releases page](https://github.com/administrati0n/http-master/releases) your GitHub repository.
+2. Download the latest release, usually it will be named as `AS-http-server-installer.sh` or similar.
+3. Open a terminal and navigate to the directory where you downloaded the setup file.
+4. Make the file executable:
    
    ```bash
    chmod +x AS-http-server-installer.sh
@@ -21,9 +20,9 @@
 
 ### Вариант 2: Установка одной командой
 
-Вы можете установить AS HTTP Server, используя следующую команду:
+You can install AS HTTP Server using the following 1 command:
 
    ```bash
-curl -s https://raw.githubusercontent.com/administrati0n/http-master/main/AS-http-server-installer.sh | bash
+   curl -s https://raw.githubusercontent.com/administrati0n/http-master/main/AS-http-server-installer.sh | bash
 
 
