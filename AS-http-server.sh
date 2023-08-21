@@ -71,7 +71,7 @@ settings_menu() {
                         TMP_FILE=$(mktemp)  # создаем временный файл
                         echo "Downloading to: $TMP_FILE"
                         
-                        curl -s "https://raw.githubusercontent.com/administrati0n/http-master/master/AS-http-server.sh"
+                        curl -s "https://raw.githubusercontent.com/administrati0n/http-master/main/AS-http-server.sh"
                         # Проверяем, был ли файл успешно загружен
                         if [ $? -eq 0 ] && [ -s "$TMP_FILE" ]; then
                             echo "Downloaded new version successfully. Checking content:"
