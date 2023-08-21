@@ -14,3 +14,6 @@
    
    ```bash
    chmod +x AS-http-server-installer.sh
+5. Start instalation File
+```bash
+   ./AS-http-server-installer.sh
