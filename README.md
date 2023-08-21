@@ -23,6 +23,6 @@ http-server launch wizard and convenient server management and configuration.
 You can install AS HTTP Server using the following 1 command:
 
    ```bash
-   cd ~/Downloads/ && curl -O https://raw.githubusercontent.com/administrati0n/http-master/main/AS-http-server-installer.sh && chmod +x AS-http-server-installer.sh && ./AS-http-server-installer.sh
+   curl -O https://raw.githubusercontent.com/administrati0n/http-master/main/AS-http-server-installer.sh && chmod +x AS-http-server-installer.sh && ./AS-http-server-installer.sh
 
 
