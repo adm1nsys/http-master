@@ -49,6 +49,4 @@ You can install AS HTTP Server using the following 1 command:
 
    ```bash
    curl -O https://raw.githubusercontent.com/administrati0n/http-master/main/linux/AS-http-server-installer.sh && chmod +x AS-http-server-installer.sh && ./AS-http-server-installer.sh
-
-
-
+```
