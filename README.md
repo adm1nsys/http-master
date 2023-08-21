@@ -3,7 +3,7 @@
 http-server launch wizard and convenient server management and configuration.
 
 # Shell Version Installer (Mac OS)
-
+Tested on Ventura.
 ### Option 1: Manual installation
 
 1. Go to [releases page](https://github.com/administrati0n/http-master/releases) your GitHub repository.
