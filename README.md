@@ -15,5 +15,15 @@
    ```bash
    chmod +x AS-http-server-installer.sh
 5. Start instalation File
-```bash
+6. 
+   ```bash
    ./AS-http-server-installer.sh
+
+### Вариант 2: Установка одной командой
+
+Вы можете установить AS HTTP Server, используя следующую команду:
+
+   ```bash
+curl -s https://raw.githubusercontent.com/administrati0n/http-master/main/AS-http-server-installer.sh | bash
+
+
