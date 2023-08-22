@@ -27,9 +27,18 @@ F_BOLD="\033[1m"
 F_INVERT="\033[7m"
 C_WHITE="\033[38;5;15m"
 C_GREY0="\033[48;5;16m"
-CURRENT_VERSION="1.0.0"  # пример текущей версии
+CURRENT_VERSION="2.3.5"  # пример текущей версии
+CURRENT_EDITION="Mac OS"  # пример текущей версии
 # AUTO_UPDATE=false 
-
+NO_FORMAT="\033[0m"
+F_BOLD="\033[1m"
+F_INVERT="\033[7m"
+C_WHITE="\033[38;5;15m"
+C_GREY0="\033[48;5;16m"
+C_GREY100="\033[38;5;231m"
+C_ORANGE1="\033[48;5;214m"
+C_ORANGE2=$(tput setab 214)
+C_GREY3="\033[38;5;232m"
 
 
 GITHUB_REPO_URL="https://github.com/administrati0n/http-master"
@@ -99,17 +108,33 @@ update_config() {
 settings_menu() {
     printf '\033c'
     clear && printf '\e[3J'
+
+
+# Обработка сигнала SIGWINCH (изменение размера окна)
+
+    printf '\033c'
+    clear && printf '\e[3J'
     while true; do
         printf '\033c'
-        echo "Settings:"
-        echo "1. Check for Updates"
+        
+        center_text ""
+# Центрирование содержимого файла
+while IFS= read -r line; do
+    center_text "$line"
+done < "$HOME/AS-http-server.txt"
+# Вывод текста, центрированного по ширине терминала
+center_text "Version ${CURRENT_VERSION} (${CURRENT_EDITION} Edition)"
+center_text "http-server"
+center_text ""
+        center_text1 "Settings:"
+        center_text2 "1. Check for Updates"
         if [ "$AUTO_UPDATE" == "true" ]; then
-     echo -e "2. Auto Update: ${GREEN}True${RESET}"
+     center_text2 "2. Auto Update: ${GREEN}True"
 else
-  echo -e "2. Auto Update: ${RED}False${RESET}"
+  center_text2 "2. Auto Update: ${YELLOW}False"
 fi
-        echo "3. Return to main menu"
-        echo "Enter your choice:"
+        center_text2 "3. Return to main menu"
+        center_text1 "Enter your choice:"
         read SETTINGS_CHOICE
         case $SETTINGS_CHOICE in
             1)
@@ -183,40 +208,100 @@ print_menu() {
     printf '\033c'
     clear && printf '\e[3J'
 
-NO_FORMAT="\033[0m"
-F_BOLD="\033[1m"
-F_INVERT="\033[7m"
-C_WHITE="\033[38;5;15m"
-C_GREY0="\033[48;5;16m"
 
+# Обработка сигнала SIGWINCH (изменение размера окна)
+trap 'print_menu' SIGWINCH
 # Устанавливаем цвет
-echo -en "${F_BOLD}${F_INVERT}${C_WHITE}${C_GREY0}"
+C_GOLD1="\033[48;5;220m"
+echo -en "${F_BOLD}${C_GREY3}${C_GOLD1}"
 
 # Выводим содержимое файла
 # cat ~/Documents/Web/AS-http-server.txt
-cat "$HOME/AS-http-server.txt"
- # echo "${RESET}"
-echo -e "${F_BOLD}${F_INVERT}${C_WHITE}${C_GREY0}                                              ${NO_FORMAT}"
-echo -e "${F_BOLD}${F_INVERT}${C_WHITE}${C_GREY0}                    http-server               ${NO_FORMAT}"
+# cat "$HOME/AS-http-server.txt"
+#  echo "${RESET}"
+# Функция для выравнивания текста по центру в зависимости от ширины терминала
+center_text() {
+    local text="$1"
+    local total_width=$(tput cols)
+    local text_width=${#text}
+    local padding=$(( (total_width - text_width) / 2 ))
+    
+    printf "${F_BOLD}${C_GREY3}${C_ORANGE1}%${padding}s" # Добавляем пробелы слева
+    echo -n "${text}"
+    printf "%$((total_width - text_width - padding))s${NO_FORMAT}\n" # Добавляем пробелы справа
+}
+
+
+
+center_text ""
+# Центрирование содержимого файла
+while IFS= read -r line; do
+    center_text "$line"
+done < "$HOME/AS-http-server.txt"
+# Вывод текста, центрированного по ширине терминала
+center_text "Version ${CURRENT_VERSION} (${CURRENT_EDITION} Edition)"
+center_text "http-server"
+center_text ""
+
 # Сбрасываем цвет
-echo -e "${NO_FORMAT}"
-    echo "${RESET}"
-    echo "Available on:"
-    echo "${GREEN}"
+# sleep 0.5
+# echo -e "${NO_FORMAT}"
+#     echo "${RESET}"
+NO_FORMAT="\033[0m"
+F_BOLD="\033[1m"
+C_WHITE="\033[38;5;15m"
+C_BLACK="\033[48;5;0m"
+
+center_text1() {
+    local text="$1"
+    local total_width=$(tput cols)
+    local text_width=${#text}
+    C_ORANGE2="\033[38;5;214m"
+    # Устанавливаем стили: белый текст на черном фоне
+    echo -en "${F_BOLD}${C_WHITE}${C_BLACK}"
+    # Выводим текст
+    echo -n "${text}"
+    # Добавляем пробелы справа до конца строки
+    printf "%$((total_width - text_width))s${NO_FORMAT}\n"
+}
+
+center_text2() {
+    local text="$1"
+    local total_width=$(tput cols)
+    local text_width=${#text}
+    C_SEAGREEN2="\033[38;5;83m"
+ echo -en "${C_ORANGE2}${C_BLACK}"
+    # Устанавливаем стили: белый текст на черном фоне
+#     echo -en "${C_WHITE}${C_BLACK}${F_BOLD}"
+    # Выводим текст
+    echo -n "${text}"
+    # Добавляем пробелы справа до конца строки
+    printf "%$((total_width - text_width))s${NO_FORMAT}\n"
+}
+
+# Использование функции:
+center_text1 "Available on:"
+
+#     center_text1 "Available on:"
+#     echo "${GREEN}"
+C_YELLOW1="\033[38;5;226m"
+C_GREEN3="\033[38;5;34m"
     for IP in "${AVAILABLE_ADDRESSES[@]}"; do
-        echo "$IP"
+    
+        center_text2 "${GREEN}$IP"
     done
-    echo "${RESET}Actions:"
-    echo "${GREEN}"
+    center_text1 ""
+    center_text1 "Actions:"
+#     echo "${GREEN}"
     for i in "${!AVAILABLE_ADDRESSES[@]}"; do 
-        echo "$((i+1)). Open ${AVAILABLE_ADDRESSES[$i]} in browser"
+        center_text2 "$((i+1)). Open ${GREEN}${AVAILABLE_ADDRESSES[$i]}"
     done
-    echo "$((${#AVAILABLE_ADDRESSES[@]}+1)). View logs"
-    echo "$((${#AVAILABLE_ADDRESSES[@]}+2)). View live logs"
-    echo "$((${#AVAILABLE_ADDRESSES[@]}+3)). Stop http-server"
-    echo "$((${#AVAILABLE_ADDRESSES[@]}+4)). Stop http-server and close console"
-    echo "$((${#AVAILABLE_ADDRESSES[@]}+5)). Settings"
-    echo "${RESET}Enter your choice:"
+    center_text2 "$((${#AVAILABLE_ADDRESSES[@]}+1)). View logs"
+    center_text2 "$((${#AVAILABLE_ADDRESSES[@]}+2)). View live logs"
+    center_text2 "$((${#AVAILABLE_ADDRESSES[@]}+3)). Stop http-server"
+    center_text2 "$((${#AVAILABLE_ADDRESSES[@]}+4)). Stop http-server and close console"
+    center_text2 "$((${#AVAILABLE_ADDRESSES[@]}+5)). Settings"
+    center_text1 "Enter your choice:"
 }
 
 # Ожидание выбора пользователя
