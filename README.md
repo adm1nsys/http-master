@@ -34,8 +34,7 @@ In console: brew: command not found
 Solution: Install Homebrew following the instructions on the [official website](https://brew.sh/index) or
    ```bash
    /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
-   ```
-.
+   ```.
 3. Insufficient rights:
 Console: Error: EACCES: permission denied or similar access denied messages.
 Solution: Run the command with "sudo" or change the permissions to the desired directory.
