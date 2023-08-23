@@ -24,7 +24,7 @@ Tested on Ventura.
 You can install AS HTTP Server using the following 1 command:
 
    ```bash
-   curl -O https://raw.githubusercontent.com/administrati0n/http-master/main/AS-http-server-installer.sh && chmod +x AS-http-server-installer.sh && ./AS-http-server-installer.sh
+   curl -O https://raw.githubusercontent.com/administrati0n/http-master/main/mac/AS-http-server-installer.sh && chmod +x AS-http-server-installer.sh && ./AS-http-server-installer.sh
 ```
 
 ## Possible errors when installing/running the script (Mac)
