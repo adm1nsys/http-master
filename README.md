@@ -27,6 +27,8 @@ You can install AS HTTP Server using the following 1 command:
    curl -O https://raw.githubusercontent.com/administrati0n/http-master/main/AS-http-server-installer.sh && chmod +x AS-http-server-installer.sh && ./AS-http-server-installer.sh
 ```
 
+# Possible errors when installing/running the script (Mac)
+
 # Shell Version Installer (Linux)
 Tested on Ubuntu, Fedora, Debian, Kali.
 ### Option 1: Manual installation
