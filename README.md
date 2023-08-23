@@ -29,6 +29,18 @@ You can install AS HTTP Server using the following 1 command:
 
 ## Possible errors when installing/running the script (Mac)
 
+1. Lack of Homebrew:
+In console: brew: command not found
+Solution: Install Homebrew following the instructions on the [official website](https://brew.sh/index) or
+   ```bash
+/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+```.
+3. Insufficient rights:
+Console: Error: EACCES: permission denied or similar access denied messages.
+Solution: Run the command with "sudo" or change the permissions to the desired directory.
+
+
+
 # Shell Version Installer (Linux)
 Tested on Ubuntu, Fedora, Debian, Kali.
 ### Option 1: Manual installation
