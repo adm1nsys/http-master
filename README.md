@@ -35,25 +35,25 @@ Solution: Install Homebrew following the instructions on the [official website](
    ```bash
    /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
    ```
-###3. Insufficient rights:
+### 3. Insufficient rights:
 Console: Error: EACCES: permission denied or similar access denied messages.
 Solution: Run the command with "sudo" or change the permissions to the desired directory.
-###4.Wrong project path:
+### 4. Wrong project path:
 In console: Directory not found.
 Solution: Check and specify the correct path to the project.
-###5.Invalid user selection:
+### 5. Invalid user selection:
 In console: Wrong choice!.
 Solution: Follow the instructions and select one of the options.
-###6.Lack of necessary utilities:
+### 6. Lack of necessary utilities:
 In the console: For example, sed: command not found or ln: command not found.
 Solution: Install the missing utilities or replace them with analogues.
-###7.Disk space issues:
+### 7. Disk space issues:
 In console: No space left on device or similar messages.
 Solution: Free up disk space by deleting unnecessary files or moving them to another medium.
-###8.Version or dependency conflicts:
+### 8. Version or dependency conflicts:
 In console: Error messages from npm or node indicating incompatibilities or conflicts.
 Solution: Update or rollback packages. If necessary, use the nvm utility to manage Node.js versions.
-###9.Errors in external resources:
+### 9. Errors in external resources:
 In console: curl: (22) The requested URL returned error: 404 Not Found.
 Solution: Check if the URL is available and correct. If the resource has been moved, find a new URL and update the script.
 
