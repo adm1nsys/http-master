@@ -155,7 +155,7 @@ read SETTINGS_CHOICE
 case $SETTINGS_CHOICE in
 1)
 echo "Checking for updates..."
-LATEST_VERSION=$(curl -s "https://raw.githubusercontent.com/administrati0n/http-master/master/ASV.txt")  # получаем последнюю версию
+LATEST_VERSION=$(curl -s "https://raw.githubusercontent.com/administrati0n/http-master/master/mac/ASV.txt")  # получаем последнюю версию
 if [ "$LATEST_VERSION" != "$CURRENT_VERSION" ]; then
 echo "Update available!"
 echo "Current version: $CURRENT_VERSION"
@@ -166,7 +166,7 @@ echo "Auto updating..."
 TMP_FILE=$(mktemp)  # создаем временный файл
 echo "Downloading to: $TMP_FILE"
 
-curl -s -o "$TMP_FILE" "https://raw.githubusercontent.com/administrati0n/http-master/main/AS-http-server.sh"
+curl -s -o "$TMP_FILE" "https://raw.githubusercontent.com/administrati0n/http-master/main/mac/AS-http-server.sh"
 # Проверяем, был ли файл успешно загружен
 if [ $? -eq 0 ] && [ -s "$TMP_FILE" ]; then
 echo "Downloaded new version successfully. Checking content:"
