@@ -80,3 +80,31 @@ You can install AS HTTP Server using the following 1 command:
    ```bash
    curl -O https://raw.githubusercontent.com/administrati0n/http-master/main/linux/AS-http-server-installer.sh && chmod +x AS-http-server-installer.sh && ./AS-http-server-installer.sh
 ```
+## Possible errors when installing/running the script (Linux)
+
+If you encounter any issues while using the installation script, please follow the guide below for the most common errors and their solutions.
+
+### 1. curl not found!
+### Symptoms ### : The script terminates with the message that curl isn't found on your system.
+
+Solution: The script tries to automatically install curl using the available package manager. If you see this error, it means the script couldn't find a recognized package manager. You'll need to manually install curl for your distribution.
+
+2. Node.js not found!
+Symptoms: The script terminates with a message saying Node.js is not installed.
+
+Solution: Similar to the curl issue, if you see this error, it means that your package manager isn't recognized by the script. Install Node.js manually for your distribution.
+
+3. npm not found!
+Symptoms: Script complains that npm is missing even after Node.js installation.
+
+Solution: Some Linux distributions separate Node.js and npm into different packages. Make sure you install both. The script attempts to handle this, but in some cases, you might need to install npm separately.
+
+4. http-server not found!
+Symptoms: Script indicates that http-server isn't installed.
+
+Solution: The script should automatically install http-server via npm. If this error persists, try running npm install -g http-server manually in the terminal.
+
+5. Directory not found
+Symptoms: The script indicates that the specified project directory doesn't exist.
+
+Solution: Ensure you've provided the correct path to your project. If using the default path, verify that the directory exists on your system.
