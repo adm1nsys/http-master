@@ -29,21 +29,24 @@ document.body.appendChild(homepage1page);
 
 
 
-const homepage1paget = document.createElement("div");
 
+function getFontSizeRelativeToWindow1(baseSize) {
+    return (window.innerWidth * baseSize / 1000);
+}
+
+const homepage1paget = document.createElement("div");
 homepage1paget.textContent = "http-master";
-homepage1paget.style.fontSize = "85px"
+homepage1paget.style.fontSize = getFontSizeRelativeToWindow(55, 55, 200);
 homepage1page.appendChild(homepage1paget);
 
 const homepage1paget1 = document.createElement("div");
-
 homepage1paget1.textContent = "Manage your local north quickly and conveniently!";
-homepage1paget1.style.fontSize = "20px"
-homepage1paget1.style.opacity = "0.5"
+homepage1paget1.style.fontSize = getFontSizeRelativeToWindow(13, 13, 200); 
+homepage1paget1.style.opacity = "0.5";
 homepage1page.appendChild(homepage1paget1);
 
-const homepage1pageb0 = document.createElement("div");
 
+const homepage1pageb0 = document.createElement("div");
 homepage1pageb0.style.border = "2px solid white";
 homepage1pageb0.style.fontSize = "20px"
 homepage1pageb0.style.padding = "10px"
@@ -267,7 +270,7 @@ var btn = document.createElement("a");
 btn.textContent = "Go to GitHub repo";
 btn.style.position = "absolute";
 btn.style.bottom = "10px";
-btn.style.fontSize = "15px";
+btn.style.fontSize = getFontSizeRelativeToWindow(15, 15, 200);
 btn.style.color = "white";
 btn.style.opacity = "0.5";
 btn.style.textDecoration = "none";
@@ -306,7 +309,7 @@ btn1.textContent = "Go to Admin inc.";
 btn1.style.position = "relative";
 btn1.style.fontFamily = "Roboto-Thin";
 btn1.style.bottom = "10px";
-btn1.style.fontSize = "15px";
+btn1.style.fontSize = getFontSizeRelativeToWindow(15, 15, 200);
 btn1.style.color = "white";
 btn1.style.opacity = "0.5";
 btn1.style.textDecoration = "none";
@@ -349,7 +352,7 @@ footer.style.alignContent = "center";
 footer.style.justifyItems = "center";
 footer.style.justifyContent = "center";
 footer.style.display = "flex";
-footer.style.fontSize = "15px";
+footer.style.fontSize = getFontSizeRelativeToWindow(15, 15, 200);
 footer.style.fontFamily = "Roboto-Thin";
 footer.style.color = "rgb(255, 162, 0)";
 document.body.appendChild(footer);

@@ -1,5 +1,14 @@
 const lscreen = 1;
-
+function getFontSizeRelativeToWindow(baseSize, minSize, maxSize) {
+    let calculatedSize = window.innerWidth * baseSize / 1000;
+    if (calculatedSize < minSize) {
+        return minSize + "px";
+    } else if (calculatedSize > maxSize) {
+        return maxSize + "px";
+    } else {
+        return calculatedSize + "px";
+    }
+}
 const shtoraT = document.createElement("div");
 shtoraT.style.display = "flex";
 shtoraT.style.width = "100%";
@@ -19,7 +28,7 @@ document.body.appendChild(shtoraT);
 const shtoraTtotle = document.createElement("div");
 shtoraTtotle.style.display = "flex";
 shtoraTtotle.style.fontFamily = "Roboto-Thin";
-shtoraTtotle.style.fontSize = "500%";
+shtoraTtotle.style.fontSize = getFontSizeRelativeToWindow(60, 60, 200);
 shtoraTtotle.textContent = "http-master";
 shtoraTtotle.style.position = "relative";
 shtoraTtotle.style.color = "rgb(255, 162, 0)";
@@ -43,7 +52,7 @@ document.body.appendChild(shtoraB);
 
 const shtoraBtotle = document.createElement("div");
 shtoraBtotle.style.display = "flex";
-shtoraBtotle.style.fontSize = "25px";
+shtoraBtotle.style.fontSize = getFontSizeRelativeToWindow(20, 20, 200);
 shtoraBtotle.textContent = "http-master from Admin inc.";
 shtoraBtotle.style.fontFamily = "Roboto-Regular"
 shtoraBtotle.style.position = "relative";
