@@ -53,7 +53,7 @@ YELLOW=$(tput setaf 3)
 GREEN=$(tput setaf 2)
 RESET=$(tput sgr0)
 CURRENT_VERSION="9.1.7"
-CURRENT_EDITION="Linux"
+CURRENT_EDITION="Windows"
 GITHUB_REPO_URL="https://github.com/administrati0n/http-master"
 
 echo "${GREEN}"
