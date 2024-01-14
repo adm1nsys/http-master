@@ -2,7 +2,7 @@
 
 http-server launch wizard and convenient server management and configuration.
 
-### [Website](https://administrati0n.github.io/http-master/en/)
+### [Website](https://adm1nsys.github.io/http-master/en/)
 
 # Shell Version Installer (Mac OS)
 Tested on Ventura.
