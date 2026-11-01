@@ -23,9 +23,9 @@ jobs:
       matrix:
         os: [ubuntu-latest, macos-latest]
     runs-on: ${{ matrix.os }}
-    env:
-      XDG_CONFIG_HOME: ${{ runner.temp }}/config
     steps:
+      - name: Keep test config out of the home folder
+        run: echo "XDG_CONFIG_HOME=$RUNNER_TEMP/config" >> "$GITHUB_ENV"
       - uses: actions/checkout@v7
       - uses: actions/setup-node@v7
         with:
