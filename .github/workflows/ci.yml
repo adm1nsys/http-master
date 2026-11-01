@@ -1,0 +1,83 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+jobs:
+  lint:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+      - name: shellcheck
+        run: shellcheck http-master.sh install.sh
+      - name: bash 3.2-compatible syntax
+        run: bash -n http-master.sh && bash -n install.sh
+
+  unix:
+    needs: lint
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-latest, macos-latest]
+    runs-on: ${{ matrix.os }}
+    env:
+      XDG_CONFIG_HOME: ${{ runner.temp }}/config
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/setup-node@v7
+        with:
+          node-version: lts/*
+      - name: --version and --help
+        run: ./http-master.sh --version && ./http-master.sh --help
+      - name: HTTP
+        run: |
+          ./http-master.sh --serve test/site --port 8099 > http.log 2>&1 &
+          for i in $(seq 1 60); do curl -fs http://127.0.0.1:8099/ > page.html && break; sleep 1; done
+          grep -q "http-master test page" page.html || { cat http.log; exit 1; }
+      - name: Certificate
+        run: |
+          ./http-master.sh --gen-cert
+          openssl x509 -in "$XDG_CONFIG_HOME/http-master/certs/localhost.crt" -noout -ext subjectAltName
+      - name: HTTPS
+        run: |
+          ./http-master.sh --serve test/site --https --port 8443 > https.log 2>&1 &
+          for i in $(seq 1 60); do curl -kfs https://127.0.0.1:8443/ > page.html && break; sleep 1; done
+          grep -q "http-master test page" page.html || { cat https.log; exit 1; }
+      - name: Busy port falls back to the next one
+        run: |
+          python3 -m http.server 8199 > /dev/null 2>&1 &
+          sleep 2
+          ./http-master.sh --serve test/site --port 8199 > busy.log 2>&1 &
+          for i in $(seq 1 60); do curl -fs http://127.0.0.1:8200/ > page.html && break; sleep 1; done
+          grep -q "Port 8199 is busy" busy.log && grep -q "http-master test page" page.html
+
+  windows:
+    needs: lint
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/setup-node@v7
+        with:
+          node-version: lts/*
+      - name: --version and --help
+        shell: cmd
+        run: |
+          call http-master.bat --version || exit /b 1
+          call http-master.bat --help || exit /b 1
+      - name: HTTP
+        shell: pwsh
+        run: |
+          Start-Process cmd -ArgumentList '/c', 'http-master.bat --serve test\site --port 8099 > http.log 2>&1' -WindowStyle Hidden
+          foreach ($i in 1..60) { try { $r = Invoke-WebRequest -UseBasicParsing http://127.0.0.1:8099/; break } catch { Start-Sleep 1 } }
+          if (-not ($r.Content -match 'http-master test page')) { Get-Content http.log; exit 1 }
+      - name: Certificate and HTTPS
+        shell: pwsh
+        run: |
+          cmd /c "http-master.bat --gen-cert"
+          if ($LASTEXITCODE -ne 0) { exit 1 }
+          Start-Process cmd -ArgumentList '/c', 'http-master.bat --serve test\site --https --port 8443 > https.log 2>&1' -WindowStyle Hidden
+          foreach ($i in 1..60) { $page = curl.exe -ks https://127.0.0.1:8443/; if ($page -match 'http-master test page') { break }; Start-Sleep 1 }
+          if (-not ($page -match 'http-master test page')) { Get-Content https.log; exit 1 }

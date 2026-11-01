@@ -1,112 +1,83 @@
 # http-master
 
-http-server launch wizard and convenient server management and configuration.
+[![CI](https://github.com/adm1nsys/http-master/actions/workflows/ci.yml/badge.svg)](https://github.com/adm1nsys/http-master/actions/workflows/ci.yml)
 
-### [Website](https://adm1nsys.github.io/http-master/en/)
+Start an HTTP or HTTPS server for any folder from a small terminal menu — on macOS, Linux and Windows.
 
-# Shell Version Installer (Mac OS)
-Tested on Ventura.
-### Option 1: Manual installation
+```
+http-master 10.0.0 · static HTTP/HTTPS server for any folder
+Need PHP, Node.js apps or a database? → ServerMaster: https://adm1nsys.github.io/ServerMaster/
 
-1. Go to [releases page](https://github.com/administrati0n/http-master/releases) your GitHub repository.
-2. Download the latest release, usually it will be named as `AS-http-server-installer.sh` or similar.
-3. Open a terminal and navigate to the directory where you downloaded the setup file.
-4. Make the file executable:
-   
-   ```bash
-   chmod +x AS-http-server-installer.sh
-   ```
-5. Start instalation File
-6. 
-   ```bash
-   ./AS-http-server-installer.sh
+  Folder           /Users/me/Sites/portfolio
+  Port             8080
+  Access           this computer only
+  HTTPS certificate ready
 
-### Option 2: Install with one command
-
-You can install AS HTTP Server using the following 1 command:
-
-   ```bash
-   curl -O https://raw.githubusercontent.com/administrati0n/http-master/main/mac/AS-http-server-installer.sh && chmod +x AS-http-server-installer.sh && ./AS-http-server-installer.sh
+  [1] Start HTTP           [2] Start HTTPS
+  [3] Choose folder        [4] Change port        [5] Toggle access
+  [6] Generate certificate [7] Install dependencies
+  [8] Check for updates    [9] Open ServerMaster  [0] Quit
 ```
 
-## Possible errors when installing/running the script (Mac)
+## Features
 
-1. Lack of Homebrew:
-In console: brew: command not found
-Solution: Install Homebrew following the instructions on the [official website](https://brew.sh/index) or
-   ```bash
-   /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
-   ```
-### 3. Insufficient rights:
-Console: Error: EACCES: permission denied or similar access denied messages.
-Solution: Run the command with "sudo" or change the permissions to the desired directory.
-### 4. Wrong project path:
-In console: Directory not found.
-Solution: Check and specify the correct path to the project.
-### 5. Invalid user selection:
-In console: Wrong choice!.
-Solution: Follow the instructions and select one of the options.
-### 6. Lack of necessary utilities:
-In the console: For example, sed: command not found or ln: command not found.
-Solution: Install the missing utilities or replace them with analogues.
-### 7. Disk space issues:
-In console: No space left on device or similar messages.
-Solution: Free up disk space by deleting unnecessary files or moving them to another medium.
-### 8. Version or dependency conflicts:
-In console: Error messages from npm or node indicating incompatibilities or conflicts.
-Solution: Update or rollback packages. If necessary, use the nvm utility to manage Node.js versions.
-### 9. Errors in external resources:
-In console: curl: (22) The requested URL returned error: 404 Not Found.
-Solution: Check if the URL is available and correct. If the resource has been moved, find a new URL and update the script.
+- **HTTP and HTTPS** for any folder, served by Node.js [`http-server`](https://github.com/http-party/http-server).
+- **Folder picker** — type a path (with tab completion), use the current folder, or pick it in Finder / a dialog / Explorer.
+- **Self-signed certificates** generated with openssl, valid for `localhost`, `127.0.0.1` and your LAN address.
+- **Local or network access** — keep the server on this computer, or open it to phones and other devices in your Wi-Fi.
+- **Free port** — if the port is taken, the next free one is used.
+- **Missing dependencies are installed on request**: Node.js and openssl via Homebrew, apt, dnf, pacman, apk or winget; `http-server` via npm or `npx`.
+- **Update check** against the latest GitHub release, with self-update.
+- **Remembers** the last folder, port and access mode.
+- **Scriptable**: every action also works as a flag, e.g. `http-master --serve ./site --https`.
 
-# Shell Version Installer (Linux)
-Tested on Ubuntu, Fedora, Debian, Kali.
-### Option 1: Manual installation
+## Install
 
-1. Go to [releases page](https://github.com/administrati0n/http-master/releases) your GitHub repository.
-2. Download the latest release, usually it will be named as `AS-http-server-installer.sh` or similar.
-3. Open a terminal and navigate to the directory where you downloaded the setup file.
-4. Make the file executable:
-   
-   ```bash
-   chmod +x AS-http-server-installer.sh
-5. Start instalation File
-6. 
-   ```bash
-   ./AS-http-server-installer.sh
+**macOS / Linux**
 
-### Option 2: Install with one command
-
-You can install AS HTTP Server using the following 1 command:
-
-   ```bash
-   curl -O [https://raw.githubusercontent.com/administrati0n/http-master/main/linux/AS-http-server-installer.sh && chmod +x AS-http-server-installer.sh && ./AS-http-server-installer.sh
+```bash
+curl -fsSL https://raw.githubusercontent.com/adm1nsys/http-master/main/install.sh | bash
 ```
-## Possible errors when installing/running the script (Linux)
 
-If you encounter any issues while using the installation script, please follow the guide below for the most common errors and their solutions.
+This puts `http-master` into `~/.local/bin`. It runs with the system bash (3.2 on macOS is fine) and from zsh.
 
-### 1. curl not found!
-Symptoms : The script terminates with the message that curl isn't found on your system.
+**Windows 10 / 11**
 
-Solution: The script tries to automatically install curl using the available package manager. If you see this error, it means the script couldn't find a recognized package manager. You'll need to manually install curl for your distribution.
+Download [`http-master.bat`](http-master.bat) and run it, or put it in a folder on your `PATH` to use `http-master` from any terminal.
 
-### 2. Node.js not found!
-Symptoms: The script terminates with a message saying Node.js is not installed.
+## Usage
 
-Solution: Similar to the curl issue, if you see this error, it means that your package manager isn't recognized by the script. Install Node.js manually for your distribution.
+```
+http-master                       open the menu
+http-master --serve [DIR]         start right away (foreground, Ctrl+C to stop)
+    --port N                      port (default 8080 or the last one used)
+    --https                       serve over HTTPS (a certificate is generated if needed)
+    --network                     listen on all interfaces, not just this computer
+http-master --gen-cert            create a new self-signed certificate
+http-master --install-deps        install Node.js, http-server and openssl if missing
+http-master --check-update        look for a newer release
+http-master --version | --help
+Add --yes to answer prompts with yes.
+```
 
-### 3. npm not found!
-Symptoms: Script complains that npm is missing even after Node.js installation.
+Settings, certificates and the server log live in `~/.config/http-master` (Windows: `%APPDATA%\http-master`).
 
-Solution: Some Linux distributions separate Node.js and npm into different packages. Make sure you install both. The script attempts to handle this, but in some cases, you might need to install npm separately.
+## How it is built
 
-### 4. http-server not found!
-Symptoms: Script indicates that http-server isn't installed.
+| File | Platform |
+|---|---|
+| [`http-master.sh`](http-master.sh) | macOS and Linux — bash, no dependencies beyond Node.js |
+| [`http-master.bat`](http-master.bat) | Windows — cmd, with PowerShell for dialogs and the update check |
+| [`install.sh`](install.sh) | one-line installer for macOS and Linux |
 
-Solution: The script should automatically install http-server via npm. If this error persists, try running npm install -g http-server manually in the terminal.
+Both scripts share the same menu, flags and config. [CI](.github/workflows/ci.yml) runs `shellcheck` and then real smoke tests on Ubuntu, macOS and Windows: start the server over HTTP, generate a certificate, start it over HTTPS and fetch a page each time.
 
-### 5. Directory not found
-Symptoms: The script indicates that the specified project directory doesn't exist.
+## History
 
-Solution: Ensure you've provided the correct path to your project. If using the default path, verify that the directory exists on your system.
+- **2023** — the first version: a bash wizard for macOS around `http-server`, followed by builds for Linux and a native macOS app (the app itself has not survived).
+- The idea grew into [ServerMaster](https://adm1nsys.github.io/ServerMaster/) — a full local server manager for static sites, PHP with a database and Node.js apps.
+- **2026** — http-master rewritten as the small tool it was meant to be: one menu for HTTP/HTTPS on all three systems, certificates, dependency setup and update checks. The 2023 releases are kept on the [releases page](https://github.com/adm1nsys/http-master/releases).
+
+---
+
+Heorhii Romanenko · [adm1nsys.github.io](https://adm1nsys.github.io/adm1nsys/) · MIT License
