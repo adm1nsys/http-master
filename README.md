@@ -1,6 +1,15 @@
-# http-master
+<picture>
+  <source media="(prefers-color-scheme: light)" srcset=".github/readme/banner-light.svg">
+  <img src=".github/readme/banner-dark.svg" alt="http-master — HTTP/HTTPS for any folder" width="100%">
+</picture>
 
-[![CI](https://github.com/adm1nsys/http-master/actions/workflows/ci.yml/badge.svg)](https://github.com/adm1nsys/http-master/actions/workflows/ci.yml)
+<p>
+  <a href="https://adm1nsys.github.io/http-master/"><img alt="Website" src="https://img.shields.io/badge/Website-070707?style=for-the-badge&logo=safari&logoColor=white"></a>
+  <a href="https://github.com/adm1nsys/http-master/releases/latest/download/http-master.sh"><img alt="Download for macOS and Linux" src="https://img.shields.io/badge/Download-macOS_·_Linux-070707?style=for-the-badge&logo=gnubash&logoColor=white"></a>
+  <a href="https://github.com/adm1nsys/http-master/releases/latest/download/http-master.bat"><img alt="Download for Windows" src="https://img.shields.io/badge/Download-Windows-070707?style=for-the-badge"></a>
+  <a href="https://adm1nsys.github.io/http-master/#versions"><img alt="All versions" src="https://img.shields.io/badge/All_versions-070707?style=for-the-badge&logo=github&logoColor=white"></a>
+  <a href="LICENSE"><img alt="License MIT" src="https://img.shields.io/badge/License-MIT-070707?style=for-the-badge"></a>
+</p>
 
 Start an HTTP or HTTPS server for any folder from a small terminal menu — on macOS, Linux and Windows.
 
@@ -78,6 +87,6 @@ Both scripts share the same menu, flags and config. [CI](.github/workflows/ci.ym
 - The idea grew into [ServerMaster](https://adm1nsys.github.io/ServerMaster/) — a full local server manager for static sites, PHP with a database and Node.js apps.
 - **2026** — http-master rewritten as the small tool it was meant to be: one menu for HTTP/HTTPS on all three systems, certificates, dependency setup and update checks. The 2023 releases are kept on the [releases page](https://github.com/adm1nsys/http-master/releases).
 
----
+## License
 
-Heorhii Romanenko · [adm1nsys.github.io](https://adm1nsys.github.io/adm1nsys/) · MIT License
+[MIT](LICENSE) © Heorhii Romanenko

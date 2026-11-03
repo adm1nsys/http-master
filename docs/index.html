@@ -1,0 +1,206 @@
+<!doctype html>
+<html lang="de">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+    <title>http-master — adm1nsys</title>
+    <meta name="description" content="Start an HTTP or HTTPS server for any folder from a small terminal menu — macOS, Linux and Windows.">
+    <meta name="theme-color" content="#070707" media="(prefers-color-scheme: dark)">
+    <meta name="theme-color" content="#f9f9f9" media="(prefers-color-scheme: light)">
+    <link rel="icon" href="/adm1nsys/assets/img/favicon.svg" type="image/svg+xml">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@400;500&family=Roboto:wght@400;500&display=swap">
+    <link rel="stylesheet" href="/adm1nsys/assets/css/style.css">
+    <link rel="stylesheet" href="/adm1nsys/kit/project.css">
+    <style>
+      /* The menu as it looks in the terminal */
+      .term { margin: 0 0 clamp(2rem, 5vw, 3rem); overflow: hidden; }
+      .term-bar { display: flex; gap: 6px; padding: 12px 14px; border-bottom: 1px solid var(--line); }
+      .term-bar i { width: 11px; height: 11px; border-radius: 50%; background: var(--line); }
+      .term pre { margin: 0; padding: 1.25rem; overflow-x: auto; font: 400 13px/1.6 var(--mono); color: var(--text-2); background: none; border: 0; }
+      .term .t-dim { color: var(--muted); }
+      .term .t-ok { color: #3fb950; }
+      .term .t-key { color: var(--text); }
+
+      /* Install commands with a copy button */
+      .cmd { display: flex; align-items: center; gap: 0.5rem; margin: 0.5rem 0 1rem; padding: 0.5rem 0.5rem 0.5rem 1rem; border: 1px solid var(--line); border-radius: 8px; background: var(--chip); }
+      .cmd code { flex: 1; min-width: 0; overflow-x: auto; white-space: nowrap; font: 400 13px/1.6 var(--mono); }
+      .cmd .btn { flex: none; }
+      .platform { margin: 1rem 0 0.25rem; font: 500 13px/1.4 var(--mono); color: var(--text); }
+
+      /* Bigger sibling */
+      .sibling { display: grid; gap: 1rem; align-items: center; margin: 0 0 clamp(2rem, 5vw, 3rem); padding: 1.25rem; text-decoration: none; transition: border-color 0.2s, transform 0.2s; }
+      @media (min-width: 640px) { .sibling { grid-template-columns: auto 1fr auto; } }
+      .sibling:hover { border-color: var(--muted); transform: translateY(-2px); }
+      .sibling img { width: 56px; height: 56px; border-radius: 13px; }
+      .sibling b { display: block; margin-bottom: 0.25rem; font: 500 1.0625rem/1.3 var(--mono); }
+      .sibling span { color: var(--text-2); font-size: 15px; }
+      .sibling .go { font: 500 14px/1 var(--mono); color: var(--muted); white-space: nowrap; }
+    </style>
+  </head>
+  <body>
+    <div class="backdrop backdrop-short" aria-hidden="true"></div>
+
+    <main class="wrap">
+      <header class="page-head">
+        <p class="eyebrow">Bash · cmd · macOS · Linux · Windows</p>
+        <h1>http-master</h1>
+        <p class="lead" data-i18n="lead"></p>
+        <div class="actions">
+          <a class="btn btn-primary" href="#install" data-i18n="installBtn"></a>
+          <a class="btn" data-download="http-master.bat"
+             href="https://github.com/adm1nsys/http-master/releases/latest/download/http-master.bat" data-i18n="windowsBtn"></a>
+          <a class="btn btn-ghost" href="https://github.com/adm1nsys/http-master" target="_blank" rel="noopener">GitHub ↗</a>
+        </div>
+        <p class="meta" data-i18n="meta"></p>
+      </header>
+
+      <div class="card term" aria-label="http-master menu">
+        <div class="term-bar" aria-hidden="true"><i></i><i></i><i></i></div>
+<pre><span class="t-key">http-master 10.0.0</span> <span class="t-dim">· static HTTP/HTTPS server for any folder</span>
+<span class="t-dim">Need PHP, Node.js apps or a database? → ServerMaster</span>
+
+  Folder           /Users/me/Sites/portfolio
+  Port             8080
+  Access           this computer only
+  HTTPS certificate <span class="t-ok">ready</span>
+
+  <span class="t-key">[1]</span> Start HTTP           <span class="t-key">[2]</span> Start HTTPS
+  <span class="t-key">[3]</span> Choose folder        <span class="t-key">[4]</span> Change port        <span class="t-key">[5]</span> Toggle access
+  <span class="t-key">[6]</span> Generate certificate <span class="t-key">[7]</span> Install dependencies
+  <span class="t-key">[8]</span> Check for updates    <span class="t-key">[9]</span> Open ServerMaster  <span class="t-key">[0]</span> Quit</pre>
+      </div>
+
+      <div class="folds">
+        <details class="card fold" open>
+          <summary><span data-i18n="whatTitle"></span><svg class="icon icon-sm" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg></summary>
+          <div class="fold-body" data-i18n-html="whatBody"></div>
+        </details>
+
+        <details class="card fold" id="install" open>
+          <summary><span data-i18n="installTitle"></span><svg class="icon icon-sm" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg></summary>
+          <div class="fold-body">
+            <p class="platform">macOS · Linux</p>
+            <div class="cmd"><code>curl -fsSL https://raw.githubusercontent.com/adm1nsys/http-master/main/install.sh | bash</code><button class="btn btn-sm" type="button" data-copy data-i18n="copy"></button></div>
+            <p data-i18n-html="installUnix"></p>
+            <p class="platform">Windows 10 / 11</p>
+            <p data-i18n-html="installWin"></p>
+          </div>
+        </details>
+
+        <details class="card fold">
+          <summary><span data-i18n="usageTitle"></span><svg class="icon icon-sm" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg></summary>
+          <div class="fold-body">
+            <p data-i18n="usageIntro"></p>
+<pre><code>http-master                       open the menu
+http-master --serve [DIR]         start right away (Ctrl+C to stop)
+    --port N                      port (default 8080 or the last one used)
+    --https                       serve over HTTPS (a certificate is generated if needed)
+    --network                     listen on all interfaces, not just this computer
+http-master --gen-cert            create a new self-signed certificate
+http-master --install-deps        install Node.js, http-server and openssl if missing
+http-master --check-update        look for a newer release
+http-master --version | --help
+Add --yes to answer prompts with yes.</code></pre>
+            <p data-i18n-html="usageConfig"></p>
+          </div>
+        </details>
+
+        <details class="card fold">
+          <summary><span data-i18n="builtTitle"></span><svg class="icon icon-sm" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg></summary>
+          <div class="fold-body" data-i18n-html="builtBody"></div>
+        </details>
+
+        <details class="card fold">
+          <summary><span data-i18n="historyTitle"></span><svg class="icon icon-sm" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg></summary>
+          <div class="fold-body" data-i18n-html="historyBody"></div>
+        </details>
+      </div>
+
+      <a class="card sibling" href="https://adm1nsys.github.io/ServerMaster/" target="_blank" rel="noopener">
+        <img src="https://adm1nsys.github.io/ServerMaster/assets/icon.png" alt="" width="56" height="56">
+        <div><b>ServerMaster</b><span data-i18n="siblingText"></span></div>
+        <span class="go" data-i18n="siblingGo"></span>
+      </a>
+
+      <div class="folds">
+        <details class="card fold" id="versions" open>
+          <summary><span data-i18n="versionsTitle"></span><svg class="icon icon-sm" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg></summary>
+          <div class="fold-body" data-releases></div>
+        </details>
+      </div>
+    </main>
+
+    <script>
+      const REPO = 'https://github.com/adm1nsys/http-master';
+      const file = (path, label = path) => `<a href="${REPO}/blob/main/${path}" target="_blank" rel="noopener"><code>${label}</code></a>`;
+      const SM = '<a href="https://adm1nsys.github.io/ServerMaster/" target="_blank" rel="noopener">ServerMaster</a>';
+      const BAT = `<a href="${REPO}/releases/latest/download/http-master.bat"><code>http-master.bat</code></a>`;
+      window.PROJECT = {
+        repo: 'adm1nsys/http-master',
+        license: 'MIT',
+        langs: ['de', 'en'],
+        i18n: {
+          de: {
+            lead: 'Ein HTTP- oder HTTPS-Server für jeden Ordner, aus einem kleinen Menü im Terminal — auf macOS, Linux und Windows.',
+            installBtn: 'Installieren',
+            windowsBtn: 'Für Windows laden',
+            meta: 'Bash 3.2+ · cmd · Node.js http-server · MIT',
+            whatTitle: 'Was es kann',
+            whatBody: `<ul><li><strong>HTTP und HTTPS</strong> für jeden Ordner, ausgeliefert von Node.js <a href="https://github.com/http-party/http-server" target="_blank" rel="noopener"><code>http-server</code></a>.</li><li><strong>Ordner wählen:</strong> Pfad eintippen (mit Tab-Vervollständigung), den aktuellen Ordner nehmen oder im Finder, einem Dialog oder im Explorer auswählen.</li><li><strong>Selbstsignierte Zertifikate</strong> mit openssl, gültig für <code>localhost</code>, <code>127.0.0.1</code> und die Adresse im lokalen Netz.</li><li><strong>Lokal oder im Netz:</strong> nur auf diesem Computer — oder für Handys und andere Geräte im WLAN erreichbar.</li><li><strong>Freier Port:</strong> ist der Port belegt, wird der nächste freie genommen.</li><li><strong>Fehlende Abhängigkeiten</strong> installiert es auf Nachfrage: Node.js und openssl über Homebrew, apt, dnf, pacman, apk oder winget; <code>http-server</code> über npm oder <code>npx</code>.</li><li><strong>Updates:</strong> prüft das neueste GitHub-Release und aktualisiert sich selbst.</li><li>Merkt sich Ordner, Port und Zugriff — und jede Aktion gibt es auch als Option, etwa <code>http-master --serve ./site --https</code>.</li></ul>`,
+            installTitle: 'Installieren',
+            copy: 'Kopieren', copied: 'Kopiert',
+            installUnix: 'Legt <code>http-master</code> nach <code>~/.local/bin</code>. Läuft mit dem System-Bash (3.2 auf macOS reicht) und aus zsh.',
+            installWin: `${BAT} herunterladen und starten — oder in einen Ordner im <code>PATH</code> legen, dann geht <code>http-master</code> aus jedem Terminal.`,
+            usageTitle: 'Verwendung',
+            usageIntro: 'Ohne Argumente öffnet sich das Menü. Alles geht auch direkt:',
+            usageConfig: 'Einstellungen, Zertifikate und das Server-Log liegen in <code>~/.config/http-master</code> (Windows: <code>%APPDATA%\\http-master</code>).',
+            builtTitle: 'Wie es gebaut ist',
+            builtBody: `<ul><li>${file('http-master.sh')} — macOS und Linux, reines Bash ohne weitere Abhängigkeiten außer Node.js.</li><li>${file('http-master.bat')} — Windows, cmd mit PowerShell für Dialoge und den Update-Check.</li><li>${file('install.sh')} — der Einzeiler-Installer für macOS und Linux.</li></ul><p>Beide Skripte teilen Menü, Optionen und Konfiguration. Die <a href="${REPO}/actions/workflows/ci.yml" target="_blank" rel="noopener">CI</a> prüft mit <code>shellcheck</code> und testet dann wirklich auf Ubuntu, macOS und Windows: Server über HTTP starten, Zertifikat erzeugen, über HTTPS starten und jedes Mal eine Seite abrufen.</p>`,
+            historyTitle: 'Geschichte',
+            historyBody: `<ul><li><strong>2023</strong> — die erste Fassung: ein Bash-Assistent für macOS rund um <code>http-server</code>, danach Builds für Linux und eine eigene macOS-App (die App selbst ist nicht erhalten).</li><li>Aus der Idee wurde ${SM} — ein vollständiger Manager für lokale Server: statische Seiten, PHP mit Datenbank und Node.js-Apps.</li><li><strong>2026</strong> — http-master neu geschrieben als das kleine Werkzeug, das es sein sollte: ein Menü für HTTP/HTTPS auf allen drei Systemen, Zertifikate, Einrichtung der Abhängigkeiten und Update-Check. Die Releases von 2023 sind unten in den Versionen erhalten.</li></ul>`,
+            siblingText: 'Mehr als statische Dateien? PHP mit Datenbank, Node.js-Apps und eigene Befehle — in einem Fenster gestartet und überwacht.',
+            siblingGo: 'Zu ServerMaster ↗',
+            versionsTitle: 'Versionen',
+            title: 'http-master — adm1nsys'
+          },
+          en: {
+            lead: 'An HTTP or HTTPS server for any folder, from a small terminal menu — on macOS, Linux and Windows.',
+            installBtn: 'Install',
+            windowsBtn: 'Download for Windows',
+            meta: 'Bash 3.2+ · cmd · Node.js http-server · MIT',
+            whatTitle: 'What it does',
+            whatBody: `<ul><li><strong>HTTP and HTTPS</strong> for any folder, served by Node.js <a href="https://github.com/http-party/http-server" target="_blank" rel="noopener"><code>http-server</code></a>.</li><li><strong>Folder picker:</strong> type a path (with tab completion), use the current folder, or pick it in Finder, a dialog or Explorer.</li><li><strong>Self-signed certificates</strong> generated with openssl, valid for <code>localhost</code>, <code>127.0.0.1</code> and your LAN address.</li><li><strong>Local or network access:</strong> keep the server on this computer, or open it to phones and other devices in your Wi-Fi.</li><li><strong>Free port:</strong> if the port is taken, the next free one is used.</li><li><strong>Missing dependencies</strong> are installed on request: Node.js and openssl via Homebrew, apt, dnf, pacman, apk or winget; <code>http-server</code> via npm or <code>npx</code>.</li><li><strong>Updates:</strong> checks the latest GitHub release and updates itself.</li><li>Remembers the folder, port and access mode — and every action also works as a flag, e.g. <code>http-master --serve ./site --https</code>.</li></ul>`,
+            installTitle: 'Install',
+            copy: 'Copy', copied: 'Copied',
+            installUnix: 'This puts <code>http-master</code> into <code>~/.local/bin</code>. It runs with the system bash (3.2 on macOS is fine) and from zsh.',
+            installWin: `Download ${BAT} and run it — or put it in a folder on your <code>PATH</code> to use <code>http-master</code> from any terminal.`,
+            usageTitle: 'Usage',
+            usageIntro: 'Without arguments the menu opens. Everything also works directly:',
+            usageConfig: 'Settings, certificates and the server log live in <code>~/.config/http-master</code> (Windows: <code>%APPDATA%\\http-master</code>).',
+            builtTitle: 'How it is built',
+            builtBody: `<ul><li>${file('http-master.sh')} — macOS and Linux, plain bash with no dependencies beyond Node.js.</li><li>${file('http-master.bat')} — Windows, cmd with PowerShell for dialogs and the update check.</li><li>${file('install.sh')} — the one-line installer for macOS and Linux.</li></ul><p>Both scripts share the same menu, flags and config. <a href="${REPO}/actions/workflows/ci.yml" target="_blank" rel="noopener">CI</a> runs <code>shellcheck</code> and then real smoke tests on Ubuntu, macOS and Windows: start the server over HTTP, generate a certificate, start it over HTTPS and fetch a page each time.</p>`,
+            historyTitle: 'History',
+            historyBody: `<ul><li><strong>2023</strong> — the first version: a bash wizard for macOS around <code>http-server</code>, followed by builds for Linux and a native macOS app (the app itself has not survived).</li><li>The idea grew into ${SM} — a full local server manager for static sites, PHP with a database and Node.js apps.</li><li><strong>2026</strong> — http-master rewritten as the small tool it was meant to be: one menu for HTTP/HTTPS on all three systems, certificates, dependency setup and update checks. The 2023 releases are kept in the versions below.</li></ul>`,
+            siblingText: 'More than static files? PHP with a database, Node.js apps and your own commands — started and watched in one window.',
+            siblingGo: 'Open ServerMaster ↗',
+            versionsTitle: 'Versions',
+            title: 'http-master — adm1nsys'
+          }
+        }
+      };
+
+      document.querySelectorAll('[data-copy]').forEach((button) => {
+        button.addEventListener('click', async () => {
+          const text = button.previousElementSibling.textContent;
+          try { await navigator.clipboard.writeText(text); } catch { return; }
+          const lang = document.documentElement.lang === 'en' ? 'en' : 'de';
+          button.textContent = window.PROJECT.i18n[lang].copied;
+          setTimeout(() => { button.textContent = window.PROJECT.i18n[document.documentElement.lang === 'en' ? 'en' : 'de'].copy; }, 1500);
+        });
+      });
+    </script>
+    <script src="/adm1nsys/kit/project.js"></script>
+  </body>
+</html>
